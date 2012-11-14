@@ -7,9 +7,12 @@ var Account = require('../models/account');
 var AccountController = new Controller();
 
 AccountController.show = function() {
-  if (!this.req.isAuthenticated())
-    return this.res.redirect(this.urlFor({ action: 'login' }));
-
+  console.log("Account#show called.");
+  if (!this.req.isAuthenticated()) {
+    console.log("isAuthenticated returned false, redirecting...");
+    return this.res.redirect(this.urlFor({ action: 'loginForm' }));
+  }
+  console.log("User is authenticated.");
   this.user = this.req.user;
   this.render();
 };
@@ -24,28 +27,29 @@ AccountController.loginForm = function() {
 
 AccountController.create = function() {
   var account = new Account();
-  console.log("shit");
+  console.log("Trying to create account for " + email);
 
   account.email = this.param('email');
   account.password = this.param('password');
   account.name.first = this.param('name.first');
   account.name.last = this.param('name.last');
 
-  var self = this;
   account.save(function (err) {
     if (err)
-      return self.redirect(self.urlFor({ action: 'new' }));
-
-    return self.redirect(self.urlFor({ action: 'login' }));
+      return this.redirect(this.urlFor({ action: 'new' }));
+    console.log("Successfully created account for " + email);
+    return this.redirect(this.urlFor({ action: 'loginForm' }));
   });
 };
 
+/* 
 AccountController.login = function() {
   passport.authenticate('local', {
     successRedirect: this.urlFor({ action: 'show' }),
-    failureRedirect: this.urlFor({ action: 'login' }) }
+    failureRedirect: this.urlFor({ action: 'loginForm' }) }
   )(this.__req, this.__res, this.__next);
 };
+*/
 
 AccountController.logout = function() {
   this.req.logout();
