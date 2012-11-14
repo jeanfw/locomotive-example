@@ -27,6 +27,7 @@ authentication framework.
 ## Credits
 
   - [Tobias Bieniek](http://github.com/Turbo87)
+  - [David Roncancio](https://github.com/kuryaki)
 
 ## License
 
