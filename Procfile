@@ -1,1 +1,1 @@
-web: lcm server --debug-brk --env production
+web: lcm server --env production
