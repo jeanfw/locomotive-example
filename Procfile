@@ -1,1 +1,1 @@
-web: lcm server --env production
+web: lcm server

@@ -1,5 +1,5 @@
 extends layout
 
-div User: #{user.email}
-
-a(href = urlFor({ controller: 'account', action: 'logout' })) Logout
+block mainContent
+  div User: #{user.email}  
+  a(href = urlFor({ controller: 'account', action: 'logout' })) Logout

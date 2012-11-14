@@ -1,17 +1,11 @@
 extends layout
 
-form(action=accountURL(), method='POST')
-  .control-group
-    label(for='email') eMail
-    input(type='text', name='email')
-  .control-group
-    label(for='password') Password
-    input(type='password', name='password')
-  .control-group
-    label(for='name.first') First Name
-    input(type='text', name='name.first')
-  .control-group
-    label(for='name.last') Last Name
-    input(type='text', name='name.last')
-  .form-actions
-    button.btn.btn-primary(type='submit') Register
+block mainContent	
+  form.form-signin(action=accountURL(), method='POST')
+    h2.form-signin-heading Welcome !
+    p Please use this form to sign up.
+    input.input-block-level(type='text', name='email', placeholder='email address')
+    input.input-block-level(type='password', name='password', placeholder='password')
+    input.input-block-level(type='text', name='name.first', placeholder='first name')
+    input.input-block-level(type='text', name='name.last', placeholder='last name')
+    button.btn.btn-large.btn-primary(type='submit') Register
