@@ -27,6 +27,10 @@ AccountSchema.virtual('password').get(function () {
   this.hash = bcrypt.hashSync(password, salt);
 });
 
+AccountSchema.virtual('fullname').get(function () {
+  return this.name.first + " " + this.name.last;
+});
+
 AccountSchema.method('checkPassword', function (password, callback) {
   bcrypt.compare(password, this.hash, callback);
 });
