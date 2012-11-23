@@ -1,12 +1,11 @@
 var passport = require('passport');
 
 module.exports = function routes() {
-  this.root('account#new');
+  this.root('account#show');
   this.resource('account');
   this.resource('accounts');
   this.match('register', 'account#new', { via: 'get'});
   this.match('login', 'account#loginForm', { via: 'get' });
-  // this.match('login', 'account#login', { via: 'post' });
   this.match('login', passport.authenticate('local', { 
   	successRedirect: '/account',
   	failureRedirect: '/login', 
