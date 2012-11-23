@@ -1,10 +1,13 @@
 var express = require('express');
 var passport = require('passport');
 var flash = require('connect-flash');
+var engines = require('consolidate');
 
 module.exports = function() {
   this.set('views', __dirname + '/../../app/views');
-  this.set('view engine', 'jade');
+  this.set('view engine', 'hjs');
+  this.set('layout', 'layout');
+  this.engine('hjs', engines.hogan);
 
   this.use(express.logger({ format: '\x1b[1m:method\x1b[0m \x1b[33m:url\x1b[0m :response-time ms' }));
   this.use(express.cookieParser());

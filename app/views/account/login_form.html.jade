@@ -1,8 +1,0 @@
-extends layout
-
-block mainContent	
-  form.form-signin(action='/login', method='POST')
-    h2.form-signin-heading Please sign in
-    input.input-block-level(type='text', name='email', placeholder='email address')
-    input.input-block-level(type='password', name='password', placeholder='password')
-    button.btn.btn-large.btn-primary(type='submit') Login
