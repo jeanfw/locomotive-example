@@ -44,7 +44,7 @@ AccountSchema.static('authenticate', function (email, password, callback) {
     }
     if (!user) {
       console.log('No user returned');
-      return callback(null, false, { message: 'Incorrect username.' });
+      return callback(null, false, { message: 'Incorrect email.' });
     }
     user.checkPassword(password, function(err, passwordCorrect) {
       if (err) {        

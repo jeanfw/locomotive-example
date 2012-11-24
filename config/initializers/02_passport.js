@@ -12,9 +12,7 @@ passport.use(new LocalStrategy({
     // username, or the password is not correct, set the user to `false` to
     // indicate failure.  Otherwise, return the authenticated `user`.
     console.log('Passport authenticating email ' + email);
-    Account.authenticate(email, password, function(err, user) {
-      return done(err, user);
-    });
+    Account.authenticate(email, password, done);
   }
 ));
 

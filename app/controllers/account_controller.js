@@ -10,6 +10,7 @@ AccountController.show = function() {
   console.log("Account#show called.");
   if (!this.req.isAuthenticated()) {
     console.log("isAuthenticated returned false, redirecting...");
+    this.req.flash('info', 'Please login or register first.');
     return this.res.redirect(this.urlFor({ action: 'loginForm' }));
   }
   console.log("User is authenticated.");
@@ -22,12 +23,12 @@ AccountController.new = function() {
 };
 
 AccountController.loginForm = function() {
-  this.render();
+  this.render('login_form', { info: this.req.flash('info'), warning: this.req.flash('error') });
 };
 
 AccountController.create = function() {
   var account = new Account();
-  console.log("Trying to create account for " + email);
+  console.log("Trying to create account for " + this.param('email'));
 
   account.email = this.param('email');
   account.password = this.param('password');
@@ -35,25 +36,19 @@ AccountController.create = function() {
   account.name.last = this.param('name.last');
 
   account.save(function (err) {
-    if (err)
-      return this.redirect(this.urlFor({ action: 'new' }));
-    console.log("Successfully created account for " + email);
-    return this.redirect(this.urlFor({ action: 'loginForm' }));
+    if (err) {
+      throw err;
+    }
+    console.log("Successfully created account for " + account.email);
   });
+  
+  this.redirect('/login');
 };
-
-/* 
-AccountController.login = function() {
-  passport.authenticate('local', {
-    successRedirect: this.urlFor({ action: 'show' }),
-    failureRedirect: this.urlFor({ action: 'loginForm' }) }
-  )(this.__req, this.__res, this.__next);
-};
-*/
 
 AccountController.logout = function() {
   this.req.logout();
-  this.redirect('/');
+  this.req.flash('info', 'You have successfully logged out.')
+  this.redirect('/login');
 };
 
 module.exports = AccountController;
